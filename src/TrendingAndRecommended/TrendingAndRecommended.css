@@ -1,0 +1,105 @@
+/* Container Styles */
+.product-sections {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .section {
+    margin-bottom: 40px;
+  }
+  
+  .section h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  /* Slider Styles */
+  .product-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+  }
+  
+  .product-slider::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .product-slider::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Product Card Styles */
+  .product-card {
+    flex: 0 0 auto;
+    width: 150px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Product Image */
+  .product-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  /* Product Info */
+  .product-info {
+    padding: 10px;
+  }
+  
+  .product-info h4 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .product-info p {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .hover-buttons {
+    display: none;
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: column; /* Column direction for vertical alignment */
+    align-items: center;
+    width: 100%;
+  }
+  
+  .product-card:hover .hover-buttons {
+    display: flex;
+  }
+  
+  .hover-buttons button {
+    padding: 10px 15px;
+    margin: 5px 0; /* Vertical spacing between buttons */
+    background-color: #5AA750;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 80%; /* Optional: Adjust button width */
+    transition: background-color 0.3s ease;
+  }
+  
+  .hover-buttons button:hover {
+    background-color: #5AA750;
+  }
+  
