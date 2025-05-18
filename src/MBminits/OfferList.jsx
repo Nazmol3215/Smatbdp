@@ -8,7 +8,7 @@ export default function OfferList() {
   const [sortByDuration, setSortByDuration] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/offers')
+    fetch('https://bdback-5ofz.onrender.com/api/offers')
       .then(res => res.json())
       .then(data => {
         setOffers(data);
@@ -48,7 +48,7 @@ export default function OfferList() {
       {/* Admin Panel Button */}
       <div style={{ textAlign: 'right', marginBottom: 10 }}>
         <a
-          href="/admin"
+          href="/OfferForm"
           style={{
             textDecoration: 'none',
             backgroundColor: '#007bff',
