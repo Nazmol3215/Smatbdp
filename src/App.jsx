@@ -63,6 +63,12 @@ import TeacherList from "./Tuition/TeacherList";
 import TeacherList_1 from "./Tuition/TeacherList_1";
 import Olama_1 from "./Olama/Olama_1";
 import Testti2 from "./Admin/Testti2";
+import OfferForm from "./MBminits/OfferForm";
+import OfferList from "./MBminits/OfferList";
+
+
+
+
 
 export default function Router() {
   return (
@@ -70,6 +76,8 @@ export default function Router() {
     <BrowserRouter>
     <Routes>
 
+      <Route path="OfferList" element={<OfferList />} />
+      <Route path="OfferForm" element={<OfferForm />} />
       <Route path="Testti2" element={<Testti2 />} />
       <Route path="Olama_1" element={<Olama_1 />} />
       <Route path="Olama_1" element={<Olama_1 />} />
