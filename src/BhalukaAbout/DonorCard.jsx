@@ -11,31 +11,29 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-const DonorCard = ({ name, phone, bloodGroup, address }) => {
-  return (
-    <div style={styles.card}>
-      <div style={styles.icon}>
-        <img src={fdgbvdrg} alt="user-icon" style={styles.iconImage} />
-      </div>
-      <h3 style={styles.name}>{name}</h3>
-      <p style={styles.text}>
-        <strong>রক্তের গ্রুপ:</strong>{" "}
-        <span style={styles.bloodGroup}>{bloodGroup}</span>
-      </p>
-      <p style={styles.text}>
-        <strong>ঠিকানা:</strong> {address}
-      </p>
-      <a href={`tel:${phone}`} style={styles.button}>
-        কল করুন
-      </a>
+const DonorCard = ({ name, phone, bloodGroup, address }) => (
+  <div style={styles.card}>
+    <div style={styles.icon}>
+      <img src={fdgbvdrg} alt="user-icon" style={styles.iconImage} />
     </div>
-  );
-};
+    <h3 style={styles.name}>{name}</h3>
+    <p style={styles.text}>
+      <strong>রক্তের গ্রুপ:</strong>{" "}
+      <span style={styles.bloodGroup}>{bloodGroup}</span>
+    </p>
+    <p style={styles.text}>
+      <strong>ঠিকানা:</strong> {address}
+    </p>
+    <a href={`tel:${phone}`} style={styles.button}>
+      কল করুন
+    </a>
+  </div>
+);
 
 const DonorList = () => {
-  const donors = [
-
-    { name: 'Masud Rana Emon', phone: '01711048200', bloodGroup: 'O+', address: '1 No Ward ,,, Bhaluka Pourashova' },
+  const allDonors = [
+   
+     { name: 'Masud Rana Emon', phone: '01711048200', bloodGroup: 'O+', address: '1 No Ward ,,, Bhaluka Pourashova' },
     { name: 'Marof', phone: '01915849963', bloodGroup: 'O+', address: 'সিডস্টোর বাজার, ভালুকা, ময়মনসিংহ' },
     { name: 'Masud', phone: '01903041220', bloodGroup: 'O+', address: 'চান্দের বাজার জামিরদিয়া মাস্টারবাড়ি হবিরবাড়ী ভালুকা ময়মনসিংহ' },
     { name: 'মো: শাকিল মাহমুদ', phone: '01630425113', bloodGroup: 'B+', address: 'কাহালগাঁও ফুলবাড়িয়া ময়মনসিংহ' },
@@ -159,7 +157,7 @@ const DonorList = () => {
     { name: "Mohammad abdul kadir", phone: "01811941090", bloodGroup: "B+", address: "মাহমুদপুর,ভালুকা" },
     { name: "Sohel Khan", phone: "01716546440", bloodGroup: "A+", address: "Tangail, Bangladesh" },
     { name: "Mohammad Rifat", phone: "01314542465", bloodGroup: "O+", address: "বড়চালা হবিরবাড়ী ভালুকা ময়মনসিংহ" },
-    { name: "ফেরদৌস আহমেদ", phone: "01610245702", bloodGroup: "O+", address: "নামঃ ফেরদৌস আহমেদ গ্রামঃ রাজৈ পোঃ থানাঃ ভালুকা" },
+    { name: "ফেরদৌস আহমেদ", phone: "01610245702", bloodGroup: "O+", address: "নামঃ ফেরদৌস আহমেদ গ্রামঃ রাজৈ পোঃ রাজৈ বাজার থানাঃ ভালুকা জেলাঃ ময়মনসিংহ" },
     { name: "Shahadat islam", phone: "01617986804", bloodGroup: "A+", address: "পাঁচগাও,আংগাড়গারা,ভালুকা" },
     { name: "KHUSRO", phone: "+8801713505903", bloodGroup: "A+", address: "Jamirdia, Hobirbari, Bhaluka" },
     { name: "Abdullah al Fahad", phone: "01712408592", bloodGroup: "O+", address: "Bhaluka Hospital road" },
@@ -195,7 +193,7 @@ const DonorList = () => {
     { name: "Mazharul Islam", phone: "01782554040", bloodGroup: "B+", address: "ত্রিশাল ময়মনসিংহ" },
     { name: "MD NAYEM SANY", phone: "01631188727", bloodGroup: "B+", address: "Speedstore bazar Bhaluka Mymensingh" },
     { name: "রতন মিয়া", phone: "01713511823", bloodGroup: "A+", address: "জামির দিয়া(ডুবালিয়া পাড়া) হবিরবাড়ী, ভালুকা।" },
-    { name: "মোঃ রুবেল মিয়া", phone: "+8801717879435", bloodGroup: "A+", address: "Village, Post office: Habirbari, Upozila: Bhaluka, District: Mymensingh-2240" },
+    { name: "মোঃ রুবেল মিয়া", phone: "+8801717879435", bloodGroup: "A+", address: "Village: 9 Habirbari, Post office: Habirbari, Upozila: Bhaluka, District: Mymensingh-2240, Dhaka - Mymensingh Hwy, Mymensingh 2240, Bangladesh" },
     { name: "Babul Sakar", phone: "01739617864", bloodGroup: "AB+", address: "বর্তা, মল্লিকবাড়ি, ভালুকা, ময়মনসিংহ" },
     { name: "Ariyan Hasan Rabbi", phone: "01618661637", bloodGroup: "O+", address: "গাজীপুর" },
     { name: "মোঃ আল মন্নাছ পাঠান", phone: "01926219351", bloodGroup: "A+", address: "মাহমুদ পুর, ভালুকা, ময়মনসিংহ" },
@@ -258,7 +256,7 @@ const DonorList = () => {
     { name: 'Murad Islam', phone: '01778748382', bloodGroup: 'O+', address: 'Dhalia Bhaluka Mymensingh' },
     { name: 'Md Ashikur Rahman', phone: '01779646216', bloodGroup: 'B+', address: 'বহুলী, ভালুকা, ময়মনসিংহ।' },
     { name: 'চুমকি রানী দাস', phone: '01765686712', bloodGroup: 'A+', address: 'ভালুকা সীষ্টোর বাজার' },
-    { name: 'মোঃ মুরাদ মিয়া', phone: '০১৯৭৭৯৫২১২৯', bloodGroup: 'O+', address: 'বর্তমান ঠিকানা:- কাঁচারি, সদর ময়মনসিংহ। স্থায়ী ঠিকানা:- মিরকা, ভালুকা' },
+    { name: 'মোঃ মুরাদ মিয়া', phone: '০১৯৭৭৯৫২১২৯', bloodGroup: 'O+', address: 'বর্তমান ঠিকানা:- কাঁচারি, সদর ময়মনসিংহ। স্থায়ী ঠিকানা:- মিরকা, ভালুকা, ময়মনসিংহ।' },
     { name: 'মোহাম্মদ আসিফ', phone: '০১৭৭৯৩১৯৯৭১', bloodGroup: 'A+', address: 'বরদী, ভালুকা, ময়মনসিংহ' },
   { name: 'Mehedi Hasan akash', phone: '01645275030', bloodGroup: 'O+', address: 'Hobirbari jalo bazer' },
   { name: 'হাবিবুর রহমান', phone: '০১৬২৮২২৫৩২১', bloodGroup: 'B+', address: 'পারুলদিয়া - ভালুকা' },
@@ -684,30 +682,29 @@ const DonorList = () => {
   { name: "মোঃ ফয়সাল", phone: "01317972475", bloodGroup: "A-", address: "ভালুকা" },
   { name: "আয়ান আল ফাহাদ", phone: "01711107708", bloodGroup: "A-", address: "ভালুকা পৌরসভা" },
 
+
+    
   ];
 
-  const [filteredDonors, setFilteredDonors] = useState([]);
+  const [donors, setDonors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [bloodGroupFilter, setBloodGroupFilter] = useState('');
   const [addressFilter, setAddressFilter] = useState('');
-  const [visibleCount, setVisibleCount] = useState(8); // প্রতি ধাপে কয়টা দেখাবে
+  const [visibleCount, setVisibleCount] = useState(8);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const shuffledDonors = shuffleArray(donors);
-    setFilteredDonors(shuffledDonors);
+    const shuffled = shuffleArray(allDonors);
+    setDonors(shuffled);
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    const filtered = donors.filter(donor => {
-      const matchesBloodGroup = bloodGroupFilter ? donor.bloodGroup === bloodGroupFilter : true;
-      const matchesAddress = addressFilter ? donor.address.includes(addressFilter) : true;
-      const matchesSearch = donor.name.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesBloodGroup && matchesAddress && matchesSearch;
-    });
-    setFilteredDonors(shuffleArray(filtered));
-  }, [searchQuery, bloodGroupFilter, addressFilter]);
+  const filteredDonors = donors.filter((donor) => {
+    const matchesSearch = donor.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesBlood = bloodGroupFilter ? donor.bloodGroup === bloodGroupFilter : true;
+    const matchesAddress = addressFilter ? donor.address.toLowerCase().includes(addressFilter.toLowerCase()) : true;
+    return matchesSearch && matchesBlood && matchesAddress;
+  });
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 8);
@@ -716,13 +713,7 @@ const DonorList = () => {
   return (
     <div>
       <div style={styles.filterSection}>
-        <input
-          type="text"
-          placeholder="নাম দিয়ে খুঁজুন"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={styles.searchInput}
-        />
+      
         <select
           value={bloodGroupFilter}
           onChange={(e) => setBloodGroupFilter(e.target.value)}
@@ -737,35 +728,47 @@ const DonorList = () => {
           <option value="B-">B-</option>
           <option value="O-">O-</option>
         </select>
-        <input
+          <input
+          type="text"
+          placeholder="নাম দিয়ে খুঁজুন"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={styles.searchInput}
+        />
+        {/* <input
           type="text"
           placeholder="ঠিকানা দিয়ে খুঁজুন"
           value={addressFilter}
           onChange={(e) => setAddressFilter(e.target.value)}
           style={styles.filterInput}
-        />
+        /> */}
       </div>
 
       {loading ? (
         <p style={{ textAlign: 'center', padding: '20px', color: 'gray' }}>লোড হচ্ছে...</p>
       ) : (
-        <div style={styles.container}>
-          {filteredDonors.slice(0, visibleCount).map((donor, index) => (
-            <DonorCard
-              key={index}
-              name={donor.name}
-              phone={donor.phone}
-              bloodGroup={donor.bloodGroup}
-              address={donor.address}
-            />
-          ))}
-        </div>
-      )}
+        <>
+          <div style={styles.container}>
+            {filteredDonors.slice(0, visibleCount).map((donor, index) => (
+              <DonorCard
+                key={index}
+                name={donor.name}
+                phone={donor.phone}
+                bloodGroup={donor.bloodGroup}
+                address={donor.address}
+              />
+            ))}
+          </div>
 
-      {!loading && visibleCount < filteredDonors.length && (
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <button onClick={handleLoadMore} style={styles.loadMoreButton}>আরও দেখুন</button>
-        </div>
+          {visibleCount < filteredDonors.length && (
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+              <button onClick={handleLoadMore} style={styles.loadMoreButton}>আরও দেখুন</button>
+            </div>
+          )}
+          {filteredDonors.length === 0 && (
+            <p style={{ textAlign: 'center', color: 'red' }}>কোনো তথ্য পাওয়া যায়নি।</p>
+          )}
+        </>
       )}
     </div>
   );
@@ -853,3 +856,6 @@ const styles = {
 };
 
 export default DonorList;
+
+
+

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import { Link } from "react-router-dom"; // এটিকে অ্যাড করা হয়েছে
+import { Link } from "react-router-dom";
 
 // স্ট্যাটিক প্রোফাইল ডেটা
 const staticProfiles = [
@@ -96,11 +96,11 @@ const callPhone = (phone) => {
 const ProfileCard = ({ profile }) => {
   return (
     <div className="card text-center shadow-sm w-100" style={{ borderRadius: "15px", padding: "1px", backgroundColor: "#f9f9f9", border: "1px solid #ddd" }}>
-      <img 
-        src={profile.image || "https://via.placeholder.com/100"} 
-        className="card-img-top rounded-circle mx-auto mt-3" 
-        style={{ width: "100px", height: "100px", objectFit: "cover", border: "3px solid #007bff" }} 
-        alt="Profile" 
+      <img
+        src={profile.image || "https://via.placeholder.com/100"}
+        className="card-img-top rounded-circle mx-auto mt-3"
+        style={{ width: "100px", height: "100px", objectFit: "cover", border: "3px solid #007bff" }}
+        alt="Profile"
       />
       <div style={{ padding: "1px 2px", margin: "4px" }} className="card-body">
         <h5 className="card-title" style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#333" }}>{profile.name}</h5>
@@ -110,8 +110,8 @@ const ProfileCard = ({ profile }) => {
               <td style={{ fontWeight: "bold", backgroundColor: "#f1f1f1" }}>নাম্বার</td>
               <td>
                 {profile.phone}
-                <button 
-                  className="btn btn-sm btn-outline-success ms-2" 
+                <button
+                  className="btn btn-sm btn-outline-success ms-2"
                   onClick={() => callPhone(profile.phone)}
                   style={{ padding: "1px 5px", fontSize: "0.8rem", fontWeight: "bold" }}
                 >
@@ -136,13 +136,11 @@ const ProfileCard = ({ profile }) => {
 
 const Testti2 = () => {
   const [allProfiles, setAllProfiles] = useState([]);
-  const [shuffledProfiles, setShuffledProfiles] = useState([]);
   const [professionFilter, setProfessionFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [searchName, setSearchName] = useState("");
 
   useEffect(() => {
-    // API থেকে ডেটা আনা এবং স্ট্যাটিক ডেটার সাথে যুক্ত করা
     axios.get("https://bdback-5ofz.onrender.com/api/users")
       .then(res => {
         const apiProfiles = res.data.map(user => ({
@@ -152,44 +150,39 @@ const Testti2 = () => {
           address: user.address,
           image: user.image
         }));
-
-        const combined = [...staticProfiles, ...apiProfiles];
-        setAllProfiles(combined);
-
-        // এলোমেলো করে সেট করা
-        const shuffled = [...combined].sort(() => 0.5 - Math.random());
-        setShuffledProfiles(shuffled);
+        setAllProfiles([...staticProfiles, ...apiProfiles]);
       })
       .catch(err => {
         console.error("Error fetching users:", err);
-        // শুধু স্ট্যাটিক ডেটা যদি API কাজ না করে
-        const shuffled = [...staticProfiles].sort(() => 0.5 - Math.random());
         setAllProfiles(staticProfiles);
-        setShuffledProfiles(shuffled);
       });
   }, []);
 
-  const uniqueProfessions = [...new Set(allProfiles.map(p => p.profession))];
-  const uniqueLocations = [...new Set(allProfiles.map(p => p.address))];
+  const uniqueProfessions = [...new Set(allProfiles.map(p => p.profession).filter(Boolean))];
+  const uniqueLocations = [...new Set(allProfiles.map(p => p.address).filter(Boolean))];
 
-  const filteredProfiles = shuffledProfiles.filter(p => {
-    const matchProfession = professionFilter === "" || p.profession === professionFilter;
-    const matchLocation = locationFilter === "" || p.address === locationFilter;
-    const matchName = searchName === "" || p.name.toLowerCase().includes(searchName.toLowerCase());
-    return matchProfession && matchLocation && matchName;
-  });
+  const filteredProfiles = allProfiles
+    .filter(p => {
+      const name = p.name || "";
+      const profession = p.profession || "";
+      const address = p.address || "";
+
+      const matchProfession = professionFilter === "" || profession === professionFilter;
+      const matchLocation = locationFilter === "" || address === locationFilter;
+      const matchName = searchName === "" || name.toLowerCase().includes(searchName.toLowerCase());
+
+      return matchProfession && matchLocation && matchName;
+    })
+    .sort(() => 0.5 - Math.random());
 
   return (
     <div className="container mt-4">
-
-      {/* উপরের লিঙ্ক টেক্সট */}
       <div className="mb-4 text-center">
         <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
-        মিস্ত্রীর প্রফাইল লিস্ট করতে এখানে <Link to="/UserForm">ক্লীক</Link> করুন
+          মিস্ত্রীর প্রফাইল লিস্ট করতে এখানে <Link to="/UserForm">ক্লীক</Link> করুন
         </p>
       </div>
 
-      {/* ফিল্টার UI */}
       <div className="row mb-3">
         <div className="col-md-4 mb-2">
           <select
@@ -216,7 +209,7 @@ const Testti2 = () => {
           </select>
         </div>
         <div className="col-md-4 mb-2">
-          <input 
+          <input
             type="text"
             className="form-control"
             placeholder="নাম দিয়ে খুঁজুন"
@@ -226,7 +219,6 @@ const Testti2 = () => {
         </div>
       </div>
 
-      {/* প্রোফাইল কার্ডগুলো */}
       <div className="row g-3">
         {filteredProfiles.map((profile, index) => (
           <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
