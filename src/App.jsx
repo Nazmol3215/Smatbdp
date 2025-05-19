@@ -66,7 +66,7 @@ import Testti2 from "./Admin/Testti2";
 import OfferForm from "./MBminits/OfferForm";
 import OfferList from "./MBminits/OfferList";
 import MBminits_1 from "./MBminits/MBminits_1";
-
+import ManagerPanel from "./MBminits/ManagerPanel";
 
 
 
@@ -76,6 +76,7 @@ export default function Router() {
     <BrowserRouter>
     <Routes>
 
+      <Route path="ManagerPanel" element={<ManagerPanel />} />
       <Route path="MBminits_1" element={<MBminits_1 />} />
       <Route path="OfferList" element={<OfferList />} />
       <Route path="OfferForm" element={<OfferForm />} />

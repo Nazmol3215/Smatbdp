@@ -22,7 +22,6 @@ const ProfileDetails = ({ name, mobile, designation }) => {
     color: '#333',
     marginBottom: '10px',
     fontFamily: '"Galada", cursive',
-    fontWeight: 400,
     fontStyle: 'normal',
   };
 
