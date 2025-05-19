@@ -34,9 +34,16 @@ export default function OfferList() {
     setShowForm(true);
   };
 
+  const handleCloseForm = () => {
+    setShowForm(false);
+    setSelectedOffer(null);
+    setCustomerName('');
+    setCustomerPhone('');
+  };
+
   const handleSubmitOrder = async () => {
     if (!customerName || !customerPhone) {
-      alert("দয়া করে নাম ও ফোন নম্বর লিখুন");
+      alert("দয়া করে নাম ও ফোন নম্বর দিন");
       return;
     }
 
@@ -47,25 +54,23 @@ export default function OfferList() {
     };
 
     try {
-      const res = await fetch('https://your-backend-api.com/api/orders', {
+      const res = await fetch('https://bdback-5ofz.onrender.com/api/orders', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderData)
       });
 
+      const data = await res.json();
+
       if (res.ok) {
-        alert("✅ অর্ডার সম্পন্ন হয়েছে!");
-        setShowForm(false);
-        setCustomerName('');
-        setCustomerPhone('');
+        alert("✅ অর্ডার সম্পন্ন হয়েছে");
+        handleCloseForm();
       } else {
-        alert("❌ অর্ডার পাঠাতে সমস্যা হয়েছে");
+        alert("❌ " + data.message);
       }
-    } catch (error) {
-      console.error("Error submitting order:", error);
-      alert("⚠️ সার্ভারে সমস্যা হয়েছে");
+    } catch (err) {
+      console.error("Error:", err);
+      alert("⚠️ সার্ভার সমস্যা");
     }
   };
 
@@ -82,121 +87,116 @@ export default function OfferList() {
     );
   }
 
-  if (loading) return <p>লোড হচ্ছে...</p>;
+  if (loading) return <p className="text-center">লোড হচ্ছে...</p>;
 
   return (
-    <div style={{ maxWidth: 600, margin: 'auto', padding: 20 }}>
-      <h2>📢 সকল অফার</h2>
+    <div className="container my-4" style={{ position: 'relative' }}>
+      <h2 className="text-center mb-4">📢 সকল অফার</h2>
 
       <input
         type="text"
         placeholder="🔍 অফার খুঁজুন"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{
-          width: '100%',
-          padding: 8,
-          marginBottom: 10,
-          border: '1px solid #ccc',
-          borderRadius: 5
-        }}
+        className="form-control mb-3"
+        disabled={showForm}
       />
 
-      <div style={{ marginBottom: 10 }}>
-        <strong>টাইপ:</strong>{' '}
-        <button onClick={() => setFilterType('all')}>সব</button>{' '}
-        <button onClick={() => setFilterType('MB')}>MB</button>{' '}
-        <button onClick={() => setFilterType('Minute')}>Minute</button>{' '}
+      <div className="mb-3 d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+          <strong>টাইপ:</strong>{' '}
+          <button onClick={() => setFilterType('all')} className="btn btn-sm btn-outline-primary me-1" disabled={showForm}>সব</button>
+          <button onClick={() => setFilterType('MB')} className="btn btn-sm btn-outline-primary me-1" disabled={showForm}>MB</button>
+          <button onClick={() => setFilterType('Minute')} className="btn btn-sm btn-outline-primary" disabled={showForm}>Minute</button>
+        </div>
         <button
           onClick={() => setSortByDuration(!sortByDuration)}
-          style={{ float: 'right' }}
+          className="btn btn-sm btn-outline-success mt-2 mt-sm-0"
+          disabled={showForm}
         >
           {sortByDuration ? '↕️ মেয়াদ অনুযায়ী সাজানো বন্ধ' : '📅 মেয়াদ অনুযায়ী সাজান'}
         </button>
       </div>
 
-      {filteredOffers.length === 0 && <p>😞 কোনো অফার পাওয়া যায়নি</p>}
-
-      <ul>
+      {/* অফার লিস্ট */}
+      <div
+        className="row"
+        style={{
+          filter: showForm ? 'blur(4px)' : 'none',
+          pointerEvents: showForm ? 'none' : 'auto',
+          transition: '0.3s'
+        }}
+      >
         {filteredOffers.map((offer) => (
-          <li key={offer._id} style={{
-            marginBottom: 15,
-            border: '1px solid #ddd',
-            padding: 10,
-            borderRadius: 5,
-            backgroundColor: '#f9f9f9'
-          }}>
-            <strong>🎁 {offer.name}</strong><br />
-            ধরন: {offer.type} <br />
-            মূল্য: ৳{offer.price}<br />
-            মেয়াদ: {offer.duration}<br />
-            <button
-              style={{
-                marginTop: 8,
-                backgroundColor: 'green',
-                color: 'white',
-                padding: '6px 12px',
-                border: 'none',
-                borderRadius: 4,
-                cursor: 'pointer'
-              }}
-              onClick={() => handleBuyClick(offer)}
-            >
-              🛒 কিনুন
-            </button>
-          </li>
+          <div className="col-md-4 mb-4  col-6 md-3 mb-4" key={offer._id}>
+            <div className="card h-100 shadow-sm">
+              <div className="card-body">
+                <h5 className="card-title">🎁 {offer.name}</h5>
+                <p className="card-text">
+                  ধরন: {offer.type} <br />
+                  মূল্য: ৳{offer.price} <br />
+                  মেয়াদ: {offer.duration}
+                </p>
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleBuyClick(offer)}
+                  disabled={showForm}
+                >
+                  🛒 কিনুন
+                </button>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {/* অর্ডার ফর্ম */}
-      {showForm && (
+      {showForm && selectedOffer && (
         <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
           backgroundColor: '#fff',
           padding: 20,
           borderRadius: 10,
-          boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-          marginTop: 20
+          boxShadow: '0 0 20px rgba(0,0,0,0.4)',
+          zIndex: 100
         }}>
-          <h3>📝 অর্ডার ফর্ম ({selectedOffer.name})</h3>
+          <button
+            onClick={handleCloseForm}
+            style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              background: 'transparent',
+              border: 'none',
+              fontSize: 22,
+              cursor: 'pointer'
+            }}
+          >
+            ❌
+          </button>
+          <h4>📝 অর্ডার ফর্ম ({selectedOffer.name})</h4>
           <input
             type="text"
             placeholder="👤 আপনার নাম"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
-            style={{ width: '100%', padding: 8, marginBottom: 10 }}
+            className="form-control mb-2"
           />
           <input
             type="text"
             placeholder="📞 ফোন নম্বর"
             value={customerPhone}
             onChange={(e) => setCustomerPhone(e.target.value)}
-            style={{ width: '100%', padding: 8, marginBottom: 10 }}
+            className="form-control mb-3"
           />
           <button
             onClick={handleSubmitOrder}
-            style={{
-              backgroundColor: '#28a745',
-              color: '#fff',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: 5,
-              cursor: 'pointer'
-            }}
+            className="btn btn-success"
           >
             ✅ অর্ডার কনফার্ম করুন
-          </button>{' '}
-          <button
-            onClick={() => setShowForm(false)}
-            style={{
-              backgroundColor: '#dc3545',
-              color: '#fff',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: 5,
-              marginLeft: 10
-            }}
-          >
-            ❌ বাতিল
           </button>
         </div>
       )}
