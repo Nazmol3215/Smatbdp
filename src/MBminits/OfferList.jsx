@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function OfferList() {
   const [offers, setOffers] = useState([]);
@@ -10,6 +11,10 @@ export default function OfferList() {
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
+  const [formPosition, setFormPosition] = useState({ top: 0 });
+
+  const formRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('https://bdback-5ofz.onrender.com/api/offers')
@@ -29,9 +34,19 @@ export default function OfferList() {
     return isNaN(number) ? 0 : number;
   };
 
-  const handleBuyClick = (offer) => {
+  const handleBuyClick = (offer, event) => {
     setSelectedOffer(offer);
     setShowForm(true);
+
+    // Scroll to the button position
+    const rect = event.currentTarget.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const topPosition = rect.top + scrollTop - 50; // slightly above the button
+    setFormPosition({ top: topPosition });
+
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   };
 
   const handleCloseForm = () => {
@@ -91,7 +106,14 @@ export default function OfferList() {
 
   return (
     <div className="container my-4" style={{ position: 'relative' }}>
-      <h2 className="text-center mb-4">📢 সকল অফার</h2>
+      <h2 className="text-center mb-4">
+        <button
+          onClick={() => navigate('/OfferForm')}
+          className="btn btn-primary mb-3"
+        >
+          ➕আপনার অফার যোগ করুন
+        </button>
+      </h2>
 
       <input
         type="text"
@@ -127,42 +149,47 @@ export default function OfferList() {
           transition: '0.3s'
         }}
       >
-        {filteredOffers.map((offer) => (
-          <div className="col-md-4 mb-4  col-6 md-3 mb-4" key={offer._id}>
-            <div className="card h-100 shadow-sm">
-              <div className="card-body">
-                <h5 className="card-title">🎁 {offer.name}</h5>
-                <p className="card-text">
-                  ধরন: {offer.type} <br />
-                  মূল্য: ৳{offer.price} <br />
-                  মেয়াদ: {offer.duration}
-                </p>
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleBuyClick(offer)}
-                  disabled={showForm}
-                >
-                  🛒 কিনুন
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+       {filteredOffers.map((offer) => (
+  <div className="col-md-4 mb-4 col-6" key={offer._id}>
+    <div
+      className="card h-100 shadow-sm"
+      style={{ cursor: showForm ? 'not-allowed' : 'pointer' }}
+      onClick={(e) => !showForm && handleBuyClick(offer, e)}
+    >
+      <div className="card-body">
+        <h5 className="card-title">🎁 {offer.name}</h5>
+        <p className="card-text">
+          ধরন: {offer.type} <br />
+          মূল্য: ৳{offer.price} <br />
+          মেয়াদ: {offer.duration}
+        </p>
+        {/* বাটন সরিয়ে ফেলা হয়েছে */}
+        {/* <button className="btn btn-success" ...> 🛒 কিনুন </button> */}
+      </div>
+    </div>
+  </div>
+))}
+
       </div>
 
       {/* অর্ডার ফর্ম */}
       {showForm && selectedOffer && (
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          backgroundColor: '#fff',
-          padding: 20,
-          borderRadius: 10,
-          boxShadow: '0 0 20px rgba(0,0,0,0.4)',
-          zIndex: 100
-        }}>
+        <div
+          ref={formRef}
+          style={{
+            position: 'absolute',
+            top: formPosition.top,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '90%',
+            maxWidth: '400px',
+            backgroundColor: '#fff',
+            padding: 20,
+            borderRadius: 10,
+            boxShadow: '0 0 20px rgba(0,0,0,0.4)',
+            zIndex: 1000
+          }}
+        >
           <button
             onClick={handleCloseForm}
             style={{

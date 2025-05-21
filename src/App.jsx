@@ -67,6 +67,13 @@ import OfferForm from "./MBminits/OfferForm";
 import OfferList from "./MBminits/OfferList";
 import MBminits_1 from "./MBminits/MBminits_1";
 import ManagerPanel from "./MBminits/ManagerPanel";
+import CattleList from "./Cattle/CattleList";
+import CattleForm from "./Cattle/CattleForm";
+import ManagerPanel_1 from "./MBminits/ManagerPanel_1";
+import Component3 from "./Olama/Component3";
+import Olama from "./Olama/Olama";
+import Notices from "./Olama/Notices";
+import Announcement from "./Olama/Announcement";
 
 
 
@@ -76,12 +83,18 @@ export default function Router() {
     <BrowserRouter>
     <Routes>
 
+      <Route path="Announcement" element={<Announcement />} />
+      <Route path="Notices" element={<Notices />} />
+      <Route path="Olama" element={<Olama />} />
+      <Route path="Component3" element={<Component3 />} />
+      <Route path="ManagerPanel_1" element={<ManagerPanel_1 />} />
+      <Route path="CattleForm" element={<CattleForm />} />
+      <Route path="CattleList" element={<CattleList />} />
       <Route path="ManagerPanel" element={<ManagerPanel />} />
       <Route path="MBminits_1" element={<MBminits_1 />} />
       <Route path="OfferList" element={<OfferList />} />
       <Route path="OfferForm" element={<OfferForm />} />
       <Route path="Testti2" element={<Testti2 />} />
-      <Route path="Olama_1" element={<Olama_1 />} />
       <Route path="Olama_1" element={<Olama_1 />} />
       <Route path="TeacherList_1" element={<TeacherList_1 />} />
       <Route path="TeacherList" element={<TeacherList />} />

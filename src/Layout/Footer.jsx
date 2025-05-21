@@ -11,12 +11,12 @@ const Footer = () => {
         {/* Social Media Buttons */}
         <div className="row justify-content-center mb-4">
           <div className="col-md-2 mb-2">
-            <a href="https://web.facebook.com/" className="btn btn-primary w-100" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/nazmol.hoda.854659" className="btn btn-primary w-100" target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faFacebook} /> Facebook
             </a>
           </div>
           <div className="col-md-2 mb-2">
-            <a href="https://wa.me/01641" className="btn btn-success w-100" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/01893717875" className="btn btn-success w-100" target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faWhatsapp} /> WhatsApp
             </a>
           </div>
