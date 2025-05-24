@@ -4,7 +4,7 @@ const CattleList = () => {
   const [cattles, setCattles] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/cattle')
+    fetch('https://bdback-5ofz.onrender.com/api/cattle')
       .then(res => res.json())
       .then(data => setCattles(data));
   }, []);

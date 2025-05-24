@@ -6,7 +6,7 @@ const AdminDashboard = () => {
   const [cattles, setCattles] = useState([]);
 
   const fetchData = async () => {
-    const res = await fetch('http://localhost:5000/api/cattle');
+    const res = await fetch('https://bdback-5ofz.onrender.com/api/cattle');
     const data = await res.json();
     setCattles(data);
   };
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   }, [access]);
 
   const handleLogin = async () => {
-    const res = await fetch('http://localhost:5000/api/dashboard/login', {
+    const res = await fetch('https://bdback-5ofz.onrender.com/api/dashboard/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password }),
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/dashboard/${id}`, { method: 'DELETE' });
+    await fetch(`https://bdback-5ofz.onrender.com/api/dashboard/${id}`, { method: 'DELETE' });
     fetchData();
   };
 
