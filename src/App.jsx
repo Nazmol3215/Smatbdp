@@ -75,8 +75,6 @@ import Olama from "./Olama/Olama";
 import Notices from "./Olama/Notices";
 import Announcement from "./Olama/Announcement";
 
-
-
 export default function Router() {
   return (
     <>
